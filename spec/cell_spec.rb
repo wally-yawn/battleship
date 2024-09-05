@@ -26,4 +26,29 @@ end
             expect(@cell.empty?).to eq(false)
         end
     end
+
+    describe '#fired_upon?' do
+        it 'returns false if the cell has not been fired upon' do
+            expect(@cell.fired_upon?).to eq(false)
+        end
+    end
+
+    describe '#fire_upon' do
+        it 'returns true if the cell has been fired upon and there is a ship' do
+            expect(@cell.fired_upon?).to eq(false)
+            expect(@cruiser.health).to eq(3)
+            @cell.place_ship(@cruiser)
+            @cell.fire_upon
+            expect(@cell.fired_upon?).to eq(true)
+            expect(@cruiser.health).to eq(2)
+        end
+
+        it 'returns true if the cell has been fired upon and there is no ship' do
+            expect(@cell.fired_upon?).to eq(false)
+            expect(@cruiser.health).to eq(3)
+            @cell.fire_upon
+            expect(@cell.fired_upon?).to eq(true)
+            expect(@cruiser.health).to eq(3)
+        end
+    end
 end
