@@ -13,7 +13,11 @@ class Cell
     end
 
     def place_ship(ship)
-        @ship = ship
+        if @ship == nil
+            @ship = ship
+        else
+            'cell is taken'
+        end
     end
     
     def fired_upon?
@@ -21,9 +25,26 @@ class Cell
     end
 
     def fire_upon
-        @hit = true
-        if @ship != nil
-            @ship.hit
+        if fired_upon? == false
+            @hit = true
+            if @ship != nil
+                @ship.hit
+            end
+        else
+            "already fired upon"
+        end
+    end
+
+    def render
+        #add optional show ship when option is true
+        if @hit == false
+            '.'
+        elsif @ship == nil
+            'M'
+        elsif @ship.sunk? != true
+            "H"
+        else
+            'X'
         end
     end
 end
