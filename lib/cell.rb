@@ -6,6 +6,7 @@ class Cell
         @coordinate = coordinate
         @ship = nil
         @hit = false
+        @hit = false
     end
 
     def empty?
