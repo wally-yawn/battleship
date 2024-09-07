@@ -74,31 +74,36 @@ end
 
     describe '#render' do
         it 'renders . if the cell has not been fired upon and has a ship' do
+            @cell_1 = Cell.new("B4")
             @cell.place_ship(@cruiser)
             expect(@cell.render).to eq('.')
         end
 
         it 'renders . if the cell has not been fired upon and does not have a ship' do
-            expect(@cell.render).to eq('.')
+            @cell_1 = Cell.new("B4")
+            expect(@cell_1.render).to eq('.')
         end
 
         it 'renders “M” if the cell has been fired upon and it does not contain a ship.' do
-            @cell.fire_upon
-            expect(@cell.render).to eq('M')
+            @cell_1 = Cell.new("B4")
+            @cell_1.fire_upon
+            expect(@cell_1.render).to eq('M')
         end
 
         it 'renders “H” if the cell has been fired upon and it contains a ship' do
-            @cell.place_ship(@cruiser)
-            @cell.fire_upon
-            expect(@cell.render).to eq('H')
+            @cell_2 = Cell.new("C3")
+            @cell_2.place_ship(@cruiser)
+            @cell_2.fire_upon
+            expect(@cell_2.render).to eq('H')
         end
     
         it 'renders “X” if the cell has been fired upon and its ship has been sunk.' do
-            @cell.place_ship(@cruiser)
-            @cell.fire_upon
+            @cell_2 = Cell.new("C3")
+            @cell_2.place_ship(@cruiser)
+            @cell_2.fire_upon
             @cruiser.hit
             @cruiser.hit
-            expect(@cell.render).to eq('X')
+            expect(@cell_2.render).to eq('X')
         end
     end
 end

@@ -6,6 +6,7 @@ class Cell
         @coordinate = coordinate
         @ship = nil
         @hit = false
+        @hit = false
     end
 
     def empty?
@@ -35,8 +36,9 @@ class Cell
         end
     end
 
-    def render
-        #add optional show ship when option is true
+    def render(reveal = false)
+        # Needs more testing to make sure reveal works properal
+        # Possible will need work in interation 2
         if @hit == false
             '.'
         elsif @ship == nil
