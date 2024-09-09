@@ -36,7 +36,4 @@ RSpec.describe Board do
             expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
         end
     end
-
-    #oard.valid_placement?(cruiser, ["A1", "A2"])
-    #board.valid_placement?(submarine, ["A2", "A3", "A4"])
 end
