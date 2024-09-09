@@ -37,10 +37,14 @@ class Cell
     end
 
     def render(reveal = false)
-        # Needs more testing to make sure reveal works properal
-        # Possible will need work in interation 2
         if @hit == false
-            '.'
+            if reveal == true && @ship == nil
+                '.'
+            elsif reveal == true && @ship != nil
+                'S'
+            else
+                '.'
+            end
         elsif @ship == nil
             'M'
         elsif @ship.sunk? != true
