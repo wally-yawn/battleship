@@ -38,7 +38,7 @@ class Board
         valid_placement = true
         column = coordinates[0][0]
         row = coordinates[0][1].to_i
-
+        
         if coordinates[1][0] == column
             coordinates.each do |coordinate|
                 if coordinate[1].to_i != row || coordinate[0] != column
@@ -53,8 +53,9 @@ class Board
                     valid_placement = false
                 end
                 column = column.next
-
             end
+
+        else valid_placement = false
         end
         valid_placement
     end
