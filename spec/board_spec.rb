@@ -62,5 +62,34 @@ RSpec.describe Board do
         end
     end
 
-    #overlap checker
+    describe '#place' do
+        it 'can place a valid ship on a valid set of coordinates' do
+            cruiser = Ship.new("Cruiser", 3)
+            @board.place(cruiser,['A1', 'A2', 'A3'])
+            expect(@board.cells['A1'].ship).to eq(cruiser)
+            expect(@board.cells['A2'].ship).to eq(cruiser)
+            expect(@board.cells['A3'].ship).to eq(cruiser)
+            expect(@board.cells['A4'].ship).to eq(nil)
+        end
+
+        it 'cannot place a valid ship on an invalid set of coordinates' do
+            cruiser = Ship.new("Cruiser", 3)
+            expect(@board.place(cruiser,['A1', 'A2', 'A4'])).to eq('Not valid')
+            expect(@board.cells['A1'].ship).to eq(nil)
+            expect(@board.cells['A2'].ship).to eq(nil)
+            expect(@board.cells['A3'].ship).to eq(nil)
+            expect(@board.cells['A4'].ship).to eq(nil)
+        end
+
+        it 'cannot place a valid ship on an occupied cell' do
+            cruiser = Ship.new("Cruiser", 3)
+            submarine = Ship.new("Submarine", 2) 
+            @board.place(cruiser,['A1', 'A2', 'A3'])
+            expect(@board.place(submarine,['A3', 'A4'])).to eq("Not valid")
+            expect(@board.cells['A1'].ship).to eq(cruiser)
+            expect(@board.cells['A2'].ship).to eq(cruiser)
+            expect(@board.cells['A3'].ship).to eq(cruiser)
+            expect(@board.cells['A4'].ship).to eq(nil)
+        end
+    end
 end

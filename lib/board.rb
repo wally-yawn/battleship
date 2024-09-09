@@ -1,3 +1,5 @@
+require './lib/cell'
+
 class Board
     attr_reader :cells
 
@@ -76,5 +78,25 @@ class Board
             valid_placement = false
         end
         valid_placement
+    end
+
+    def occupied?(coordinates)
+        occupied = false
+        coordinates.each do |coordinate|
+            if @cells[coordinate].empty? == false
+                occupied = true
+            end
+        end
+        occupied
+    end
+
+    def place(ship,coordinates)
+        if valid_placement?(ship, coordinates) && occupied?(coordinates) == false
+            coordinates.each do |coordinate|
+                @cells[coordinate].place_ship(ship)
+            end
+        else
+            "Not valid"
+        end
     end
 end
