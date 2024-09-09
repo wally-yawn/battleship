@@ -25,6 +25,9 @@ RSpec.describe Board do
 
     describe '#length_checker/placement checker' do
         it 'has a valid length/valid placement' do
+            cruiser = Ship.new("Cruiser", 3)
+            submarine = Ship.new("Submarine", 2) 
+
             expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
             expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
         end
