@@ -19,6 +19,17 @@ RSpec.describe Board do
             expect(board.valid_coordinate?("D4")).to eq(true)
             expect(board.valid_coordinate?("A5")).to eq(false)
             expect(board.valid_coordinate?("E1")).to eq(false)
+            expect(board.valid_coordinate?("A22")).to eq(false)
         end
     end
+
+    describe '#length_checker/placement checker' do
+        it 'has a valid length/valid placement' do
+            expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
+            expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+        end
+    end
+
+    #oard.valid_placement?(cruiser, ["A1", "A2"])
+    #board.valid_placement?(submarine, ["A2", "A3", "A4"])
 end
