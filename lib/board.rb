@@ -25,4 +25,55 @@ class Board
             "D4" => Cell.new('D4')
         }
     end
+
+    def valid_coordinate?(coordinate)
+        if @cells.key?(coordinate)
+            true
+        else 
+            false
+        end
+    end
+
+    def consecutive_checker(coordinates)
+        valid_placement = true
+        column = coordinates[0][0]
+        row = coordinates[0][1].to_i
+
+        if coordinates[1][0] == column
+            coordinates.each do |coordinate|
+                if coordinate[1].to_i != row || coordinate[0] != column
+                    valid_placement = false
+                end
+                row += 1
+            end
+
+        elsif coordinates[1][1].to_i == row
+            coordinates.each do |coordinate|
+                if coordinate[0] != column || coordinate[1].to_i != row
+                    valid_placement = false
+                end
+                column = column.next
+
+            end
+        end
+        valid_placement
+    end
+
+    def valid_placement?(ship, coordinates)
+        valid_placement = true
+
+        coordinates.each do |coordinate|
+            if valid_coordinate?(coordinate) == false 
+                valid_placement = false
+            end
+        end
+        if ship.length != coordinates.length 
+            valid_placement = false
+        end
+        #validate all consecutive
+        if consecutive_checker(coordinates) == false
+            valid_placement = false
+        end
+        valid_placement
+    end
 end
