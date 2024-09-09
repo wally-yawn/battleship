@@ -37,11 +37,14 @@ class Cell
     end
 
     def render(reveal = false)
-        # Needs more testing to make sure reveal works properal
-        # Possible will need work in interation 2
-        #I think the logic is if reveal is true than it should display S instead of . in the first if
         if @hit == false
-            '.'
+            if reveal == true && @ship == nil
+                '.'
+            elsif reveal == true && @ship != nil
+                'S'
+            else
+                '.'
+            end
         elsif @ship == nil
             'M'
         elsif @ship.sunk? != true
