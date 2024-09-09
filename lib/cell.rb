@@ -54,3 +54,5 @@ class Cell
         end
     end
 end
+
+#move '.' to end to remove nested conditional - review
