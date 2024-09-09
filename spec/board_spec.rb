@@ -48,4 +48,13 @@ RSpec.describe Board do
             expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
         end
     end
+
+    describe '#diagonal_checker' do
+        it 'checks if a ship is trying to be placed diagonally' do
+            cruiser = Ship.new("Cruiser", 3)
+            submarine = Ship.new("Submarine", 2) 
+
+            
+        end
+    end
 end
