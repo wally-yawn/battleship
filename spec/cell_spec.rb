@@ -61,6 +61,7 @@ end
         end
 
         it 'does not allow fire_upon in a cell that has already been fired upon' do
+            #validate return
             expect(@cell.fired_upon?).to eq(false)
             @cell.place_ship(@cruiser)
             @cell.fire_upon
