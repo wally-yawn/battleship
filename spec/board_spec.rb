@@ -92,4 +92,13 @@ RSpec.describe Board do
             expect(@board.cells['A4'].ship).to eq(nil)
         end
     end
+
+    describe '#render' do
+        it 'displays the boardwithout revealing anything initially' do
+            @board.render
+
+            expect(@board.render).to eq()
+        end
+    end
+
 end
