@@ -14,6 +14,10 @@ RSpec.describe Board do
     end
 
     describe '#valid_coordinate checker' do
+        it 'has a total of 16 key/value pairs in the hash' do
+            expect(@board.cells.size).to eq(16)
+        end
+
         it 'is a valid coordinate' do
             expect(board.valid_coordinate?("A1")).to eq(true)
             expect(board.valid_coordinate?("D4")).to eq(true)
