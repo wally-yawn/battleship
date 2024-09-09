@@ -105,5 +105,39 @@ end
             @cruiser.hit
             expect(@cell_2.render).to eq('X')
         end
+
+        #new reveal tests
+        it 'renders . if the cell has not been fired upon and has a ship and reveal = true.' do
+            @cell_1 = Cell.new("B4")
+            @cell.place_ship(@cruiser)
+            expect(@cell.render(true)).to eq('S')
+        end
+
+        it 'renders . if the cell has not been fired upon and does not have a ship and reveal = true.' do
+            @cell_1 = Cell.new("B4")
+            expect(@cell_1.render(true)).to eq('.')
+        end
+
+        it 'renders “M” if the cell has been fired upon and it does not contain a ship and reveal = true.' do
+            @cell_1 = Cell.new("B4")
+            @cell_1.fire_upon
+            expect(@cell_1.render(true)).to eq('M')
+        end
+
+        it 'renders “H” if the cell has been fired upon and it contains a ship  and reveal = true.' do
+            @cell_2 = Cell.new("C3")
+            @cell_2.place_ship(@cruiser)
+            @cell_2.fire_upon
+            expect(@cell_2.render(true)).to eq('H')
+        end
+    
+        it 'renders “X” if the cell has been fired upon and its ship has been sunk and reveal = true.' do
+            @cell_2 = Cell.new("C3")
+            @cell_2.place_ship(@cruiser)
+            @cell_2.fire_upon
+            @cruiser.hit
+            @cruiser.hit
+            expect(@cell_2.render(true)).to eq('X')
+        end
     end
 end

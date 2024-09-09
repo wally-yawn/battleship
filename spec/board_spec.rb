@@ -58,4 +58,10 @@ RSpec.describe Board do
             expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq (false)
         end
     end
+
+    describe '#initialize' do
+        it 'exists' do
+            expect(@board).to be_an_instance_of(Board)
+        end
+    end
 end
