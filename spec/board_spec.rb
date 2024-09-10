@@ -97,7 +97,13 @@ RSpec.describe Board do
         it 'displays the boardwithout revealing anything initially' do
             @board.render
 
-            expect(@board.render).to eq()
+            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        end
+
+        it 'has reveal set to false unless the ship is S' do
+            cruiser = Ship.new("Cruiser", 3)
+
+            @board.place(cruiser, ["A1", "A2", "A3"])
         end
     end
 
