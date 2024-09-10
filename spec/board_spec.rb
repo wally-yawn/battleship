@@ -94,11 +94,29 @@ RSpec.describe Board do
     end
 
     describe '#render' do
-        it 'displays the boardwithout revealing anything initially' do
+        it 'displays the board when no ships have been placed' do
             @board.render
+            # require 'pry'; binding.pry
+            expect(@board.render).to eq(" 1 2 3 4 \n" +
+                "A . . . . \n" +
+                "B . . . . \n" +
+                "C . . . . \n" +
+                "D . . . . \n")
+        end
 
-            expect(@board.render).to eq()
+        it 'displays the board when ships have been placed' do
+        end
+
+        it 'displays the board when ships have been placed and reveal is set to true ' do
+        end
+        
+        it 'displays the board if there has been a miss' do
+        end
+
+        it 'displays the board when there has been a hit' do
+        end
+
+        it 'displays the board when there is a sunken ship' do
         end
     end
-
 end

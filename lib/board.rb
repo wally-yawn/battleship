@@ -101,4 +101,21 @@ class Board
         end
     end
 
+    def render(reveal = false)
+        reveal = reveal
+        board = " 1 2 3 4 \n"
+        @cells.each do |coordinate, cell|
+            #require 'pry'; binding.pry
+            if cell.coordinate[1].to_i == 1
+                board = board + cell.coordinate[0]
+            end
+            board = board + " " + cell.render(reveal)
+            #require 'pry'; binding.pry
+            if cell.coordinate[1].to_i == 4
+                board = board + " \n"
+            end
+        end
+        board
+    end
+
 end
