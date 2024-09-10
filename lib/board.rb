@@ -103,7 +103,7 @@ class Board
 
     def render(reveal = false)
         reveal = reveal
-        board = " 1 2 3 4 \n"
+        board = "  1 2 3 4 \n"
         @cells.each do |coordinate, cell|
             if cell.coordinate[1].to_i == 1
                 board = board + cell.coordinate[0]
@@ -115,5 +115,4 @@ class Board
         end
         board
     end
-
 end
