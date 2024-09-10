@@ -8,7 +8,7 @@ class Runner
     def self.get_start_command
         imput = gets.chomp
         if imput == "P"
-         #   @computer_logic.place
+            @computer_logic.place
             true
         elsif imput == "Q"
             exit
@@ -19,7 +19,7 @@ class Runner
 
     def self.start
         @board = Board.new
-       # @computer_logic = Computer_logic.new
+        @computer_logic = Computer_logic.new
         puts "------------------------------------------"
         puts "         Welcome to Battleship!"
         puts "------------------------------------------"
