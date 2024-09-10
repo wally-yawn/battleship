@@ -6,10 +6,11 @@ require './lib/computer_logic'
 class Runner
 
     def self.get_start_command
-        if gets == "P"
+        imput = gets.chomp
+        if imput == "P"
          #   @computer_logic.place
             true
-        elsif gets == "Q"
+        elsif imput == "Q"
             exit
         else
             false
@@ -19,7 +20,8 @@ class Runner
     def self.start
         @board = Board.new
        # @computer_logic = Computer_logic.new
-        puts "         Welcome to Battleship"
+        puts "------------------------------------------"
+        puts "         Welcome to Battleship!"
         puts "------------------------------------------"
         puts "Press P to play, Q to quit, C for credits"
 
