@@ -6,41 +6,39 @@ require './lib/computer_logic'
 class Runner
 
     def self.get_start_command
-        imput = gets.chomp
-        if imput == "P"
-            @computer_logic.place
+        input = gets.chomp.downcase
+        if input == "p"
+            @computer_logic.place_ship
             true
-        elsif imput == "Q"
+        elsif input == "q"
             exit
-        else
+        elsif input == "c"
+            puts "Brody Nichols and Wally Wallace made this awesome game!"
+            puts "------------------------------------------"
+            puts "Press P to play, Q to quit, C for credits"
             false
         end
     end
 
     def self.start
         @board = Board.new
-        @computer_logic = Computer_logic.new
+        @computer_logic = Computer_logic.new(@board)
         puts "------------------------------------------"
         puts "         Welcome to Battleship!"
         puts "------------------------------------------"
         puts "Press P to play, Q to quit, C for credits"
 
         until get_start_command == true
-
         end
+
+        puts "I have laid out my ships on the grid."
+        puts "You now need to lay out your two ships."
+        puts "The Cruiser is three units long and the Submarine is two units long."
+        puts @board.render
+        puts "Enter the squares for the Cruiser (3 spaces):"
         
-    
-     #   if gets == "P" 
-      #      computer_logic.place
+        #player ship placement implementation
 
-
-       # elsif gets == "Q"
-         #   exit
-
-        #else puts "Press P to play, Q to quit, C for credits"
-          #  until gets == "P" || "Q"
-
-        #end
     end
 
     Runner.start
