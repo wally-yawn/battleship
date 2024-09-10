@@ -4,11 +4,10 @@ require './lib/board'
 
 class Computer_logic
 
-    attr_reader :board
+    attr_reader :board, :cruiser, :submarine, :ships
     
     def initialize(board)
         @board = board
-        @player = player
         @cruiser = Ship.new("Cruiser", 3)
         @submarine = Ship.new("Submarine", 2)
         @ships = [@cruiser, @submarine]
