@@ -1,21 +1,45 @@
-class runner
+require './lib/ship'
+require './lib/cell'
+require './lib/board'
+require './lib/computer_logic'
+
+class Runner
+
+    def self.get_start_command
+        if gets == "P"
+         #   @computer_logic.place
+            true
+        elsif gets == "Q"
+            exit
+        else
+            false
+        end
+    end
 
     def self.start
-        @Board = Board.new
-        @Computer_logic = Computer_logic.new
+        @board = Board.new
+       # @computer_logic = Computer_logic.new
         puts "         Welcome to Battleship"
         puts "------------------------------------------"
         puts "Press P to play, Q to quit, C for credits"
 
-        if gets == "P" 
-            computer_logic.place
+        until get_start_command == true
 
-
-        elsif gets == "Q"
-            exit
-
-        else puts "Please enter a valid coordnite for ships"
-            
         end
+        
+    
+     #   if gets == "P" 
+      #      computer_logic.place
+
+
+       # elsif gets == "Q"
+         #   exit
+
+        #else puts "Press P to play, Q to quit, C for credits"
+          #  until gets == "P" || "Q"
+
+        #end
     end
+
+    Runner.start
 end
