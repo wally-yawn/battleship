@@ -3,10 +3,15 @@ require './lib/cell'
 require './lib/board'
 require './lib/computer_logic'
 
-class Runner
+class Game
 
-    def self.get_start_command
-        imput = gets.chomp
+    def initialize
+        @computer_logic = Computer_logic.new
+
+    end
+
+    def get_start_command
+        imput = gets.chomp.upcase
         if imput == "P"
             @computer_logic.place
             true
@@ -17,31 +22,12 @@ class Runner
         end
     end
 
-    def self.start
-        @board = Board.new
-        @computer_logic = Computer_logic.new
+    def start
         puts "------------------------------------------"
         puts "         Welcome to Battleship!"
         puts "------------------------------------------"
         puts "Press P to play, Q to quit, C for credits"
 
-        until get_start_command == true
-
-        end
-        
-    
-     #   if gets == "P" 
-      #      computer_logic.place
-
-
-       # elsif gets == "Q"
-         #   exit
-
-        #else puts "Press P to play, Q to quit, C for credits"
-          #  until gets == "P" || "Q"
-
-        #end
+        get_start_command
     end
-
-    Runner.start
 end
