@@ -13,4 +13,19 @@ class Computer_logic
         @ships = [@cruiser, @submarine]
     end
 
+    def place_ship
+        @ships.each do |ship|
+            coordinates = []
+            ship.length.times do    
+                coordinates << @board.cells.keys.sample
+            end
+            until @board.valid_placement?(ship, coordinates) == true && @board.occupied?(coordinates) == false do
+                coordinates = []    
+                ship.length.times do    
+                    coordinates << @board.cells.keys.sample
+                end
+            end
+            @board.place(ship, coordinates)
+        end
+    end
 end
