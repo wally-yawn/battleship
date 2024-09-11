@@ -71,10 +71,10 @@ class Board
                 valid_placement = false
             end
         end
-        if ship.length != coordinates.length 
+        if valid_placement == true && ship.length != coordinates.length 
             valid_placement = false
         end
-        if consecutive_checker(coordinates) == false
+        if valid_placement == true && consecutive_checker(coordinates) == false
             valid_placement = false
         end
         valid_placement
@@ -95,8 +95,9 @@ class Board
             coordinates.each do |coordinate|
                 @cells[coordinate].place_ship(ship)
             end
+            true
         else
-            "Not valid"
+            false
         end
     end
 
