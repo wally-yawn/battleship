@@ -6,18 +6,22 @@ require './lib/computer_logic'
 class Game
 
     def initialize
+        @board = Board.new
         @computer_logic = Computer_logic.new
 
     end
 
     def get_start_command
-        imput = gets.chomp.upcase
-        if imput == "P"
-            @computer_logic.place
+        input = gets.chomp.upcase
+        if input == "P"
+            @computer_logic.place_ship
             true
-        elsif imput == "Q"
+        elsif input == "Q"
             exit
-        else
+        elsif input == "C"
+            puts "Brody Nichols and Wally Wallace made this awesome game!"
+            puts "------------------------------------------"
+            puts "Press P to play, Q to quit, C for credits"
             false
         end
     end
@@ -28,6 +32,13 @@ class Game
         puts "------------------------------------------"
         puts "Press P to play, Q to quit, C for credits"
 
-        get_start_command
+        until get_start_command == true
+        end
+
+        puts "I have laid out my ships on the grid."
+        puts "You now need to lay out your two ships."
+        puts "The Cruiser is three units long and the Submarine is two units long."
+        puts @board.render
+        puts "Enter the squares for the Cruiser (3 spaces):"
     end
 end

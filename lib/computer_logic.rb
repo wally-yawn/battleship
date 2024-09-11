@@ -13,12 +13,19 @@ class Computer_logic
         @ships = [@cruiser, @submarine]
     end
 
-    def place_cruiser
-        random_coordinates = @board.cells.keys.sample(@cruiser.length)
-        until @board.valid_placment?(@cruiser, random_coordinates)
-            random_coordinates = @board.cells.keys.sample(@cruiser.length)
+    def place_ship
+        @ships.each do |ship|
+            coordinates = []
+            ship.length.times do    
+                coordinates << @board.cells.keys.sample
+            end
+            until @board.valid_placement?(ship, coordinates) == true && @board.occupied?(coordinates) == false do
+                coordinates = []    
+                ship.length.times do    
+                    coordinates << @board.cells.keys.sample
+                end
+            end
+            @board.place(ship, coordinates)
         end
-        @board.place(@cruiser, random_coordinates)
-
     end
 end
