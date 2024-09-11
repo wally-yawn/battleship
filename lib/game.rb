@@ -74,10 +74,19 @@ class Game
         end
         until @computer_logic.enter_shot_coordinate(@player_board) == true
         end
-
     end
 
-    def start
+    def determine_winner
+        if game_over(@player_board) == true && game_over(@computer_board) == true
+            puts "It's a draw!"
+        elsif game_over(@player_board) == true && game_over(@computer_board) == false
+            puts "I won!"
+        else
+            puts "You won!"
+        end
+    end
+
+    def display_main
         puts "------------------------------------------"
         puts "         Welcome to Battleship!"
         puts "------------------------------------------"
@@ -85,20 +94,28 @@ class Game
 
         until get_start_command == true
         end
+    end
 
-        puts "I have laid out my ships on the grid."
-        puts "You now need to lay out your two ships."
-        puts "The Cruiser is three units long and the Submarine is two units long."
-        puts @player_board.render
-        puts "Enter the squares for the Cruiser (3 spaces):"
-        until enter_ship_coordinates(@cruiser) == true
-        end
-        puts @player_board.render(true)
-        puts "Enter the squares for the Submarine (2 spaces):"
-        until enter_ship_coordinates(@submarine) == true
-        end
-        until game_over(@player_board) || game_over(@computer_board) == true
-            turn
+    def start
+        while true do
+            display_main
+            puts "I have laid out my ships on the grid."
+            puts "You now need to lay out your two ships."
+            puts "The Cruiser is three units long and the Submarine is two units long."
+            puts @player_board.render
+            puts "Enter the squares for the Cruiser (3 spaces):"
+            until enter_ship_coordinates(@cruiser) == true
+            end
+            puts @player_board.render(true)
+            puts "Enter the squares for the Submarine (2 spaces):"
+            until enter_ship_coordinates(@submarine) == true
+            end
+            until game_over(@player_board) || game_over(@computer_board) == true
+                turn
+            end
+            determine_winner
+            @computer_board = Board.new
+            @player_board = Board.new
         end
     end
 
