@@ -58,6 +58,6 @@ class Game
         puts "Enter the squares for the Sbumarine (2 spaces):"
         until enter_ship_coordinates(@submarine) == true
         end
-        puts @player_board.render(true)
+        turn
     end
 end
