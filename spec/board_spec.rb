@@ -128,9 +128,7 @@ RSpec.describe Board do
         
         it 'displays the board if there has been a miss' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            # require 'pry'; binding.pry
             @board.cells['B1'].fire_upon
-            #call shot method here to create a miss on B1
             expect(@board.render).to eq("  1 2 3 4 \n" +
             "A . . . . \n" +
             "B M . . . \n" +
@@ -141,7 +139,6 @@ RSpec.describe Board do
         it 'displays the board if there has been a miss and reveal is set to true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.cells['B1'].fire_upon
-            #call shot method here to create a miss on B1
             expect(@board.render(true)).to eq("  1 2 3 4 \n" +
             "A S S S . \n" +
             "B M . . . \n" +
@@ -153,7 +150,6 @@ RSpec.describe Board do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.cells['B1'].fire_upon
             @board.cells['A2'].fire_upon
-            #call shot method here to create a miss on B1 and hit on A2
             expect(@board.render).to eq("  1 2 3 4 \n" +
             "A . H . . \n" +
             "B M . . . \n" +
@@ -178,7 +174,6 @@ RSpec.describe Board do
             @board.cells['A1'].fire_upon
             @board.cells['A2'].fire_upon
             @board.cells['A3'].fire_upon
-            #call shot method here to create a hit on all three coordinates
             expect(@board.render).to eq("  1 2 3 4 \n" +
             "A X X X . \n" +
             "B . . . . \n" +

@@ -46,6 +46,11 @@ class Game
         else 
             @computer_board.cells[coordinate].fire_upon
             puts @computer_board.render
+            if @computer_board.cells[coordinate].ship == nil
+                 puts "Your shot on #{coordinate} was a miss"
+            else
+                puts "Your shot on #{coordinate} was a hit!"
+            end
             true
         end
     end
@@ -60,8 +65,8 @@ class Game
         puts "Enter the coordinate for your shot:"
         until enter_shot_coordinate == true
         end
-
-        
+        until @computer_logic.enter_shot_coordinate(@player_board) == true
+        end
 
     end
 

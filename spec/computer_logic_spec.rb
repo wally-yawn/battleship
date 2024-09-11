@@ -27,4 +27,38 @@ RSpec.describe Computer_logic do
             expect(occupied_cells.length).to eq(5)
         end
     end
+
+    describe '#enter_shot_coordinate' do
+        before(:each) do
+            @ship = Ship.new("Battleship", 4)
+            @board.place(@ship, ['A1', 'A2', 'A3', 'A4'])
+        end
+
+        it 'can fire on an unfired-upon coordinate with no ship' do
+            expect(@board.cells['B1'].fired_upon?).to eq(false)
+            expect(@ship.health).to eq(4)
+            expect(@computer_logic.enter_shot_coordinate(@board, 'B1')).to eq(true)
+            expect(@board.cells['B1'].fired_upon?).to eq(true)
+            expect(@ship.health).to eq(4)
+        end
+
+        it 'can fire on an unfired-upon coordinate with a ship' do
+            expect(@board.cells['A1'].fired_upon?).to eq(false)
+            expect(@ship.health).to eq(4)
+            expect(@computer_logic.enter_shot_coordinate(@board, 'A1')).to eq(true)
+            expect(@board.cells['A1'].fired_upon?).to eq(true)
+            expect(@ship.health).to eq(3)
+        end
+
+        it 'cannot fire on a fired-upon coordinate' do
+            expect(@board.cells['A1'].fired_upon?).to eq(false)
+            expect(@ship.health).to eq(4)
+            expect(@computer_logic.enter_shot_coordinate(@board, 'A1')).to eq(true)
+            expect(@board.cells['A1'].fired_upon?).to eq(true)
+            expect(@ship.health).to eq(3)
+            expect(@computer_logic.enter_shot_coordinate(@board, 'A1')).to eq(false)
+            expect(@board.cells['A1'].fired_upon?).to eq(true)
+            expect(@ship.health).to eq(3)
+        end
+    end
 end
