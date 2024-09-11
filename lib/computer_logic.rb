@@ -43,7 +43,7 @@ class Computer_logic
             if cell.ship == nil
                 puts "My shot on #{cell.coordinate} was a miss"
             else
-               if cell.sunk?
+               if cell.ship.sunk?
                     puts "I sunk your battleship!"
                else puts "My shot on #{cell.coordinate} was a hit!"
                end

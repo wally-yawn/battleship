@@ -49,9 +49,9 @@ class Game
             if @computer_board.cells[coordinate].ship == nil
                 puts "Your shot on #{coordinate} was a miss"
             else
-                if cell.sunk?
+                if @computer_board.cells[coordinate].ship.sunk?
                     puts "You sunk my battleship!"
-                else puts "My shot on #{cell.coordinate} was a hit!"
+                else puts "My shot on #{@computer_board.cells[coordinate]} was a hit!"
                 end
             end
             true
@@ -93,9 +93,21 @@ class Game
         puts "Enter the squares for the Submarine (2 spaces):"
         until enter_ship_coordinates(@submarine) == true
         end
-        turn
+        until game_over(@player_board) || game_over(@computer_board) == true
+            turn
+        end
     end
 
-    def game_over
-        if player_board.cells
+    def game_over(board)
+        sunk_ship_cells = board.cells.find_all do |key, cell|
+            if cell.ship != nil 
+                cell.ship.sunk?
+            end
+        end
+            if sunk_ship_cells.length == 5
+                true
+            else
+                false
+            end
+    end  
 end
