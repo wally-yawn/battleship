@@ -38,12 +38,14 @@ class Computer_logic
 
         if cell.fired_upon? == false
             cell.fire_upon
-            puts board.render
 
             if cell.ship == nil
                 puts "My shot on #{cell.coordinate} was a miss"
             else
-               puts "My shot on #{cell.coordinate} was a hit!"
+               if cell.ship.sunk?
+                    puts "I sunk your battleship!"
+               else puts "My shot on #{cell.coordinate} was a hit!"
+               end
             end
             true
         else
