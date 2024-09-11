@@ -40,18 +40,22 @@ class Game
 
     def enter_shot_coordinate
         coordinate = gets.chomp.upcase
+        # require 'pry'; binding.pry
         if @computer_board.valid_coordinate?(coordinate) == false
             puts "Please enter a valid coordinate:"
             false
+        elsif @computer_board.cells[coordinate].fired_upon? == true
+            puts "You have already fired on this coordinate, please shoot at another target"
+            false
         else 
             @computer_board.cells[coordinate].fire_upon
-            puts @computer_board.render
             if @computer_board.cells[coordinate].ship == nil
                 puts "Your shot on #{coordinate} was a miss"
             else
                 if @computer_board.cells[coordinate].ship.sunk?
                     puts "You sunk my battleship!"
-                else puts "My shot on #{@computer_board.cells[coordinate]} was a hit!"
+                else 
+                    puts "Your shot on #{coordinate} was a hit!"
                 end
             end
             true
@@ -59,7 +63,7 @@ class Game
     end
 
     def turn
-        puts "\n\n\n\n\n\n\n\n\n"
+        puts "\n"
         puts "=============COMPUTER BOARD============="
         puts @computer_board.render
         puts "==============PLAYER BOARD=============="

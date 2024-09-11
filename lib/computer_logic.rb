@@ -38,7 +38,6 @@ class Computer_logic
 
         if cell.fired_upon? == false
             cell.fire_upon
-            puts board.render
 
             if cell.ship == nil
                 puts "My shot on #{cell.coordinate} was a miss"
