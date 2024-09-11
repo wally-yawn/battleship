@@ -29,12 +29,36 @@ class Game
     end
 
     def enter_ship_coordinates(ship)
-        coordinates = gets.chomp.split(" ")
+        coordinates = gets.chomp.upcase.split(" ")
         #happy path
         if @player_board.place(ship, coordinates) != true
             puts "Invalid coordinates, try again"
             false
         else true
+        end
+    end
+
+    def enter_shot_coordinate
+        coordinate = gets.chomp.upcase
+        if @computer_board.valid_coordinate?(coordinate) == false
+            puts "Please enter a valid coordinate:"
+            false
+        else 
+            @computer_board.cells[coordinate].fire_upon
+            puts @computer_board.render
+            true
+        end
+    end
+
+    def turn
+        puts "\n\n\n\n\n\n\n\n\n"
+        puts "=============COMPUTER BOARD============="
+        puts @computer_board.render
+        puts "==============PLAYER BOARD=============="
+        puts @player_board.render(true)
+        puts "\n"
+        puts "Enter the coordinate for your shot:"
+        until enter_shot_coordinate == true
         end
     end
 
@@ -55,7 +79,7 @@ class Game
         until enter_ship_coordinates(@cruiser) == true
         end
         puts @player_board.render(true)
-        puts "Enter the squares for the Sbumarine (2 spaces):"
+        puts "Enter the squares for the Submarine (2 spaces):"
         until enter_ship_coordinates(@submarine) == true
         end
         turn
