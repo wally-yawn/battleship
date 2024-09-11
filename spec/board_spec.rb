@@ -34,6 +34,7 @@ RSpec.describe Board do
 
             expect(@board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
             expect(@board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+            expect(@board.valid_placement?(submarine, ["A2"])).to eq(false)
         end
     end
 
@@ -65,7 +66,7 @@ RSpec.describe Board do
     describe '#place' do
         it 'can place a valid ship on a valid set of coordinates' do
             cruiser = Ship.new("Cruiser", 3)
-            @board.place(cruiser,['A1', 'A2', 'A3'])
+            expect(@board.place(cruiser,['A1', 'A2', 'A3'])).to eq(true)
             expect(@board.cells['A1'].ship).to eq(cruiser)
             expect(@board.cells['A2'].ship).to eq(cruiser)
             expect(@board.cells['A3'].ship).to eq(cruiser)
@@ -74,7 +75,7 @@ RSpec.describe Board do
 
         it 'cannot place a valid ship on an invalid set of coordinates' do
             cruiser = Ship.new("Cruiser", 3)
-            expect(@board.place(cruiser,['A1', 'A2', 'A4'])).to eq('Not valid')
+            expect(@board.place(cruiser,['A1', 'A2', 'A4'])).to eq(false)
             expect(@board.cells['A1'].ship).to eq(nil)
             expect(@board.cells['A2'].ship).to eq(nil)
             expect(@board.cells['A3'].ship).to eq(nil)
@@ -85,7 +86,7 @@ RSpec.describe Board do
             cruiser = Ship.new("Cruiser", 3)
             submarine = Ship.new("Submarine", 2) 
             @board.place(cruiser,['A1', 'A2', 'A3'])
-            expect(@board.place(submarine,['A3', 'A4'])).to eq("Not valid")
+            expect(@board.place(submarine,['A3', 'A4'])).to eq(false)
             expect(@board.cells['A1'].ship).to eq(cruiser)
             expect(@board.cells['A2'].ship).to eq(cruiser)
             expect(@board.cells['A3'].ship).to eq(cruiser)
@@ -100,7 +101,7 @@ RSpec.describe Board do
         end
 
         it 'displays the board when no ships have been placed' do
-            expect(@board.render).to eq(" 1 2 3 4 \n" +
+            expect(@board.render).to eq("  1 2 3 4 \n" +
                 "A . . . . \n" +
                 "B . . . . \n" +
                 "C . . . . \n" +
@@ -109,7 +110,7 @@ RSpec.describe Board do
 
         it 'displays the board when ships have been placed' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render).to eq(" 1 2 3 4 \n" +
+            expect(@board.render).to eq("  1 2 3 4 \n" +
             "A . . . . \n" +
             "B . . . . \n" +
             "C . . . . \n" +
@@ -118,69 +119,75 @@ RSpec.describe Board do
 
         it 'displays the board when ships have been placed and reveal is set to true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render(true)).to eq(" 1 2 3 4 \n" +
+            expect(@board.render(true)).to eq("  1 2 3 4 \n" +
             "A S S S . \n" +
             "B . . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
         
-        xit 'displays the board if there has been a miss' do
+        it 'displays the board if there has been a miss' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            #call shot method here to create a miss on B1
-            expect(@board.render).to eq(" 1 2 3 4 \n" +
+            @board.cells['B1'].fire_upon
+            expect(@board.render).to eq("  1 2 3 4 \n" +
             "A . . . . \n" +
             "B M . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
 
-        xit 'displays the board if there has been a miss and reveal is set to true' do
+        it 'displays the board if there has been a miss and reveal is set to true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            #call shot method here to create a miss on B1
-            expect(@board.render(true)).to eq(" 1 2 3 4 \n" +
+            @board.cells['B1'].fire_upon
+            expect(@board.render(true)).to eq("  1 2 3 4 \n" +
             "A S S S . \n" +
             "B M . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
 
-        xit 'displays the board when there has been a hit' do
+        it 'displays the board when there has been a hit' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            #call shot method here to create a miss on B1 and hit on A2
-            expect(@board.render).to eq(" 1 2 3 4 \n" +
+            @board.cells['B1'].fire_upon
+            @board.cells['A2'].fire_upon
+            expect(@board.render).to eq("  1 2 3 4 \n" +
             "A . H . . \n" +
             "B M . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
 
-        xit 'displays the board when there has been a hit and reveal is set to true' do
+        it 'displays the board when there has been a hit and reveal is set to true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            #call shot method here to create a miss on B1 and hit on A2
-            expect(@board.render(true)).to eq(" 1 2 3 4 \n" +
+            @board.cells['B1'].fire_upon
+            @board.cells['A2'].fire_upon
+            expect(@board.render(true)).to eq("  1 2 3 4 \n" +
             "A S H S . \n" +
             "B M . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
 
-        xit 'displays the board when there is a sunken ship' do
+        it 'displays the board when there is a sunken ship' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.place(@submarine, ["C4", "D4"])
-            #call shot method here to create a hit on all three coordinates
-            expect(@board.render).to eq(" 1 2 3 4 \n" +
+            @board.cells['A1'].fire_upon
+            @board.cells['A2'].fire_upon
+            @board.cells['A3'].fire_upon
+            expect(@board.render).to eq("  1 2 3 4 \n" +
             "A X X X . \n" +
             "B . . . . \n" +
             "C . . . . \n" +
             "D . . . . \n")
         end
 
-        xit 'displays the board when there is a sunken ship and reveal is set to true' do
+        it 'displays the board when there is a sunken ship and reveal is set to true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             @board.place(@submarine, ["C4", "D4"])
-            #call shot method here to create a hit on all three coordinates
-            expect(@board.render(true)).to eq(" 1 2 3 4 \n" +
+            @board.cells['A1'].fire_upon
+            @board.cells['A2'].fire_upon
+            @board.cells['A3'].fire_upon
+            expect(@board.render(true)).to eq("  1 2 3 4 \n" +
             "A X X X . \n" +
             "B . . . . \n" +
             "C . . . S \n" +

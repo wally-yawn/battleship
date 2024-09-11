@@ -6,7 +6,6 @@ class Cell
         @coordinate = coordinate
         @ship = nil
         @hit = false
-        @hit = false
     end
 
     def empty?
@@ -54,5 +53,3 @@ class Cell
         end
     end
 end
-
-#move '.' to end to remove nested conditional - review

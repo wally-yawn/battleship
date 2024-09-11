@@ -28,4 +28,27 @@ class Computer_logic
             @board.place(ship, coordinates)
         end
     end
+
+    def enter_shot_coordinate(board, coordinate = nil)
+        if coordinate == nil 
+            coordinate = board.cells.keys.sample
+        end
+
+        cell = board.cells[coordinate]
+
+        if cell.fired_upon? == false
+            cell.fire_upon
+            puts board.render
+
+            if cell.ship == nil
+                puts "My shot on #{cell.coordinate} was a miss"
+            else
+               puts "My shot on #{cell.coordinate} was a hit!"
+            end
+            true
+        else
+            false
+        end
+    end
+
 end
