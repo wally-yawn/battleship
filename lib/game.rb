@@ -47,9 +47,12 @@ class Game
             @computer_board.cells[coordinate].fire_upon
             puts @computer_board.render
             if @computer_board.cells[coordinate].ship == nil
-                 puts "Your shot on #{coordinate} was a miss"
+                puts "Your shot on #{coordinate} was a miss"
             else
-                puts "Your shot on #{coordinate} was a hit!"
+                if cell.sunk?
+                    puts "You sunk my battleship!"
+                else puts "My shot on #{cell.coordinate} was a hit!"
+                end
             end
             true
         end
@@ -92,4 +95,7 @@ class Game
         end
         turn
     end
+
+    def game_over
+        if player_board.cells
 end
