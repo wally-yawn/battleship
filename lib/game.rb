@@ -60,6 +60,9 @@ class Game
         puts "Enter the coordinate for your shot:"
         until enter_shot_coordinate == true
         end
+
+        
+
     end
 
     def start
